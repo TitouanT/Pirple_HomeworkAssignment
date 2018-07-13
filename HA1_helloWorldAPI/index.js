@@ -38,7 +38,7 @@ server.listen(config.port, () => console.log(`Http server listening on port ${co
 
 // this function choose how to greet the user
 function greetUser() {
-	const myMessageURL = 'message not created yet'
+	const myMessageURL = 'https://pirple.thinkific.com/courses/take/the-nodejs-master-class/discussion/question/50095'
 	const user = process.env.USER;
 
 	if (user == 'root') return 'Hi! I must warn you that this server isn\'t intended to be executed as root, and therefor it shouldn\'t';
