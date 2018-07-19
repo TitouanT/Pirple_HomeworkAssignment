@@ -1,2 +1,2 @@
 # Pirple_HomeworkAssignment
-I will do the exercise given by the pirple's node.js course in this repo
+I will do the exercises given by the pirple's node.js course in this repo
