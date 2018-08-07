@@ -1,6 +1,2 @@
 https
-.data/logs
-.data/users
-.data/menus
-.data/orders
-.data/baskets
+*.json
