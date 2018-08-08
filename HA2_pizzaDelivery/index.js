@@ -13,7 +13,7 @@ const jsonparse = require('jsonparse');
 const terminal = require('terminal');
 const StringDecoder = require('string_decoder').StringDecoder;
 const fs = require('fs');
-const debug = require('util').debuglog(__filename.split('/').splice(-1,1)[0].replace('.js', ''));
+const debug = require('util').debuglog(__filename.split('/').splice(-1,1)[0].replace('.js', '')); // launch with 'NODE_DEBUG=index node index.js' to see logs
 const handlers = require('handlers/handlers');
 
 
@@ -80,13 +80,14 @@ const server = https.createServer(httpsServerOptions, (req, res) => {
 
 		handler(data)
 		.then((body={}) => {
+			body.code = 200;
 			const bodyString = JSON.stringify(body) + '\n';
 
 			// return the response
-			res.writeHead(200);
+			res.writeHead(body.code);
 			res.end(bodyString);
 
-			debug(terminal.escape(`${parsedUrl.path} -> 200 ${bodyString}`, terminal.color.green));
+			debug(terminal.escape(`${parsedUrl.path}`, terminal.color.green) + ` -> 200 ${bodyString}`);
 		})
 		.catch(err => {
 			const clientErr = err.getClient();
@@ -94,7 +95,7 @@ const server = https.createServer(httpsServerOptions, (req, res) => {
 
 			res.writeHead(clientErr.code);
 			res.end(bodyString);
-			console.log(terminal.escape(`HANDLER ERROR: ${parsedUrl.path} -> ${JSON.stringify(err.getSys())}`, terminal.color.red));
+			debug(terminal.escape('HANDLER ERROR: ', terminal.color.red) + `${parsedUrl.path} -> ${JSON.stringify(err.getSys())}`);
 		});
 	});
 });
